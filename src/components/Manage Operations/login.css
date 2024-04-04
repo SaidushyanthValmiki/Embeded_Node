@@ -1,0 +1,60 @@
+
+   
+.flipper {
+  position: relative;
+    background: #ffffff;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+	transition: 1.5s;
+	transform-style: preserve-3d;
+}
+
+.front, .back {
+  /*background-color: rgba(0,0,0,.3);*/
+  position: absolute;
+    padding:10px 30px;
+  top: 0;
+  left: 0;
+  right: 0;
+	
+	backface-visibility: hidden;
+}
+
+.front{
+	z-index: 2;
+	/* for firefox 31 */
+	transform: rotateY(0deg);
+}
+
+.back{
+    transform: rotateY(180deg);
+}
+.flip{
+		transform: rotateY(180deg);
+}
+input{
+    width:100%;
+    margin-bottom:15px;
+    height:40px;
+    box-sizing: border-box;
+    padding:10px;
+}
+
+.title{
+  text-align: center;
+  font-size: 2.5rem !important;
+  font-weight: 900;
+  text-decoration: underline;
+  margin-bottom: 20px;
+}
+.flipbutton{
+    color:#e9e9e9;
+    text-decoration:none;
+}
+
+@media (min-width:786px) and (max-width:1024px) {
+  .flip-container{
+    zoom: 70% !important;
+  }
+}
