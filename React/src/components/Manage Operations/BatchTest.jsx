@@ -69,10 +69,12 @@ const YourComponent = () => {
 
   useEffect(() => {
     fetchData(selectedIndex);
-  }, []); // Fetch data for initial index on component mount
+  }, [ ]); 
 
   return (
+
     <div>
+
       <Button variant='primary' onClick={() => setShowModal(true)} disabled={isLoading || !modalData.length}>
         Open Modal
       </Button>
@@ -85,8 +87,10 @@ const YourComponent = () => {
         selectedIndex={selectedIndex}
         handleSelectChange={handleSelectChange}
       />
+
     </div>
   );
 };
 
 export default YourComponent;
+ 

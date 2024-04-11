@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import { Menu } from 'antd';
 import operations from '../assets/menuicons/ico_operations.svg';
 import { Link } from 'react-router-dom';
@@ -17,8 +16,6 @@ import prorep from "../assets/menuicons/ico_prorep.svg"
 import tracepre from "../assets/menuicons/ico_tracerep.svg"
 import userman from "../assets/menuicons/ico_userman.svg"
 import subicon from "../assets/menuicons/subicon.svg"
-
-
 
 
 const Side = () => {
@@ -45,6 +42,7 @@ const Side = () => {
   };
 
 
+
     useEffect(() => {
         const fetchMenuData = async () => {
             try {
@@ -52,8 +50,9 @@ const Side = () => {
                 if (response.status !== 200) {
                     throw new Error('Failed to fetch menu data');
                 }
+                console.log(response.data);
                 setMenuItems(response.data.menu_items);
-                console.log(response.data.menu_items);
+                
             } catch (error) {
                 console.error('Error fetching menu data:', error);
             }
@@ -110,7 +109,7 @@ const Side = () => {
                 console.error('Error fetching sub-menu data:', error);
             }
             try {
-                const response = await axios.get("http://192.168.5.12:8089/sub_menu?MenuHeader=User%20Manual");
+                const response = await axios.get("http://192.168.5.12:8089/sub_menu?MenuHeader=User%20Management");
                 if (response.status !== 200) {
                     throw new Error('Failed to fetch sub-menu data');
                 }
@@ -225,22 +224,24 @@ const Side = () => {
         fetchSubItems();
     }, []);
 
+
+    console.log("fgsdfhgsjfgvmjkgb",menuItems)
     return (
         <div className="h-100">
             <h6 className=" menu-head">Menu</h6>
             <Menu className='bg-transparent border-0' mode="inline" triggerSubMenuAction="click" >
                 {menuItems.map((item, index) => (
                     <React.Fragment key={index}>
-                        {item.Menu_Header === 'Operation' && (
+                        {item.menu_items === 'Operation' && (
                             <Menu.SubMenu
-                                title={item.Menu_Header}
+                                title={item.menu_items}
                                 icon={<img src={operations} alt="" />}
                                 onTitleClick={() => handleSubMenuClick(item.key)}
                                 open={openKey === item.key}
                             >
                                 {OperationSubItems.map((subItem, subIndex) => (
                                     <Menu.Item key={`${index}-${subIndex}`} style={{ fontSize: '.8rem', paddingLeft: '0px' }} icon={<img src={subicon} alt="" />}>
-                                        <Link to={subItem.Sub_category}>{subItem.Sub_category}</Link>
+                                        <Link to={subItem.Sub_url}>{subItem.Sub_Header}</Link>
                                     </Menu.Item>
                                 ))}
                             </Menu.SubMenu>
@@ -255,7 +256,7 @@ const Side = () => {
                             >
                                 {ProductionSubItems.map((subItem, subIndex) => (
                                     <Menu.Item key={`${index}-${subIndex}`} style={{ fontSize: '.8rem', paddingLeft: '0px' }} icon={<img src={subicon} alt="" />}>
-                                        <Link to={subItem.Sub_category}>{subItem.Sub_category}</Link>
+                                        <Link to={subItem.Sub_url}>{subItem.Sub_Header}</Link>
                                     </Menu.Item>
                                 ))}
                             </Menu.SubMenu>
@@ -270,7 +271,7 @@ const Side = () => {
                             >
                                 {InventorySubItems.map((subItem, subIndex) => (
                                     <Menu.Item key={`${index}-${subIndex}`} style={{ fontSize: '.8rem', paddingLeft: '0px' }} icon={<img src={subicon} alt="" />}>
-                                        <Link to={subItem.Sub_category}>{subItem.Sub_category}</Link>
+                                        <Link to={subItem.Sub_url}>{subItem.Sub_Header}</Link>
                                     </Menu.Item>
                                 ))}
                             </Menu.SubMenu>
@@ -285,7 +286,7 @@ const Side = () => {
                             >
                                 {PackingSubItems.map((subItem, subIndex) => (
                                     <Menu.Item key={`${index}-${subIndex}`} style={{ fontSize: '.8rem', paddingLeft: '0px' }} icon={<img src={subicon} alt="" />}>
-                                        <Link to={subItem.Sub_category}>{subItem.Sub_category}</Link>
+                                        <Link to={subItem.Sub_url}>{subItem.Sub_Header}</Link>
                                     </Menu.Item>
                                 ))}
                             </Menu.SubMenu>
@@ -300,7 +301,7 @@ const Side = () => {
                             >
                                 {TestingSubItems.map((subItem, subIndex) => (
                                     <Menu.Item key={`${index}-${subIndex}`} style={{ fontSize: '.8rem', paddingLeft: '0px' }} icon={<img src={subicon} alt="" />}>
-                                        <Link to={subItem.Sub_category}>{subItem.Sub_category}</Link>
+                                        <Link to={subItem.Sub_url}>{subItem.Sub_Header}</Link>
                                     </Menu.Item>
                                 ))}
                             </Menu.SubMenu>
@@ -315,7 +316,7 @@ const Side = () => {
                             >
                                 {QualitySubItems.map((subItem, subIndex) => (
                                     <Menu.Item key={`${index}-${subIndex}`} style={{ fontSize: '.8rem', paddingLeft: '0px' }} icon={<img src={subicon} alt="" />}>
-                                        <Link to={subItem.Sub_category}>{subItem.Sub_category}</Link>
+                                        <Link to={subItem.Sub_url}>{subItem.Sub_Header}</Link>
                                     </Menu.Item>
                                 ))}
                             </Menu.SubMenu>
@@ -339,7 +340,7 @@ const Side = () => {
                             }>
                                 {manageOperationsSubItems.map((subItem, subIndex) => (
                                     <Menu.Item key={`${index}-${subIndex}`} style={{ fontSize: '.8rem', paddingLeft: '0px' }} icon={<img src={subicon} alt="" />}>
-                                        <Link to={subItem.Sub_category}>{subItem.Sub_category}</Link>
+                                        <Link to={subItem.Sub_url}>{subItem.Sub_Header}</Link>
                                     </Menu.Item>
                                 ))}
                             </Menu.SubMenu>
@@ -350,7 +351,7 @@ const Side = () => {
                             }>
                                 {masterSubItems.map((subItem, subIndex) => (
                                     <Menu.Item key={`${index}-${subIndex}`} style={{ fontSize: '.8rem', paddingLeft: '0px' }} icon={<img src={subicon} alt="" />}>
-                                        <Link to={subItem.Sub_category}>{subItem.Sub_category}</Link>
+                                        <Link to={subItem.Sub_url}>{subItem.Sub_Header}</Link>
                                     </Menu.Item>
                                 ))}
                             </Menu.SubMenu>
@@ -361,25 +362,25 @@ const Side = () => {
                             }>
                                 {apiSubItems.map((subItem, subIndex) => (
                                     <Menu.Item key={`${index}-${subIndex}`} style={{ fontSize: '.8rem', paddingLeft: '0px' }} icon={<img src={subicon} alt="" />}>
-                                        <Link to={subItem.Sub_category}>{subItem.Sub_category}</Link>
+                                        <Link to={subItem.Sub_url}>{subItem.Sub_Header}</Link>
                                     </Menu.Item>
                                 ))}
                             </Menu.SubMenu>
                         )}
-                        {item.Menu_Header === 'User Manual' && (
+                        {item.Menu_Header === 'User Management' && (
                             <Menu.SubMenu title={item.Menu_Header}
                                 icon={
                                     <img src={userman} alt="" />
                                 }>
                                 {usermanualSubItems.map((subItem, subIndex) => (
                                     <Menu.Item key={`${index}-${subIndex}`} style={{ fontSize: '.8rem', paddingLeft: '0px' }} icon={<img src={subicon} alt="" />}>
-                                        <Link to={subItem.Sub_category}>{subItem.Sub_category}</Link>
+                                        <Link to={subItem.Sub_url}>{subItem.Sub_Header}</Link>
                                     </Menu.Item>
                                 ))}
                             </Menu.SubMenu>
                         )}
 
-                        {item.Menu_Header !== 'Manage Operations' && item.Menu_Header !== 'Masters' && item.Menu_Header !== 'API Sync' && item.Menu_Header !== 'User Manual' && (
+                        {item.Menu_Header !== 'Manage Operations' && item.Menu_Header !== 'Masters' && item.Menu_Header !== 'API Sync' && item.Menu_Header !== 'User Management' && (
                             <Menu.Item style={{ fontSize: '.8rem', paddingLeft: '0px' }}>
                                 <Link to={item.link}>{item.Menu_Header}</Link>
                             </Menu.Item>
@@ -398,7 +399,7 @@ const Side = () => {
                                 }>
                                 {ProductionReportSubItems.map((subItem, subIndex) => (
                                     <Menu.Item key={`${index}-${subIndex}`} style={{ fontSize: '.8rem', paddingLeft: '0px' }} icon={<img src={subicon} alt="" />}>
-                                        <Link to={subItem.Sub_category}>{subItem.Sub_category}</Link>
+                                        <Link to={subItem.Sub_url}>{subItem.Sub_Header}</Link>
                                     </Menu.Item>
                                 ))}
                             </Menu.SubMenu>
@@ -410,7 +411,7 @@ const Side = () => {
                             }>
                                 {TraceReportSubItems.map((subItem, subIndex) => (
                                     <Menu.Item key={`${index}-${subIndex}`} style={{ fontSize: '.8rem', paddingLeft: '0px' }} icon={<img src={subicon} alt="" />}>
-                                        <Link to={subItem.Sub_category}>{subItem.Sub_category}</Link>
+                                        <Link to={subItem.Sub_url}>{subItem.Sub_Header}</Link>
                                     </Menu.Item>
                                 ))}
                             </Menu.SubMenu>
@@ -422,7 +423,7 @@ const Side = () => {
                                 }>
                                 {ManagementReportSubItems.map((subItem, subIndex) => (
                                     <Menu.Item key={`${index}-${subIndex}`} style={{ fontSize: '.8rem', paddingLeft: '0px' }} icon={<img src={subicon} alt="" />}>
-                                        <Link to={subItem.Sub_category}>{subItem.Sub_category}</Link>
+                                        <Link to={subItem.Sub_url}>{subItem.Sub_Header}</Link>
                                     </Menu.Item>
                                 ))}
                             </Menu.SubMenu>

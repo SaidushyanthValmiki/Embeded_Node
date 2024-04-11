@@ -42,7 +42,7 @@ const navigate =useNavigate();
 
   console.log(data)
       // Make POST request to Flask backend
-      const response = await axios.post('http://192.168.12.105:8089/register', data, {
+      const response = await axios.post('http://192.168.5.56:8089/register', data, {
         headers: {
             'Content-Type': 'application/json'
         }
@@ -62,7 +62,7 @@ const navigate =useNavigate();
     e.preventDefault();
     try {
       // Make a GET request to the authentication endpoint
-      const response = await axios.get(`http://192.168.12.105:8089/authenticate?username=${userloginInput}&password=${passwordloginInput}`);
+      const response = await axios.get(`http://192.168.5.56:8089/authenticate?username=${userloginInput}&password=${passwordloginInput}`);
       if (response.data.success === true) {
         // Display success message
         toast.success("Login Successful...");
